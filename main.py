@@ -1,7 +1,7 @@
 import requests
 import urllib
-#import textblob
-#from textblob.sentiments import NaiveBayesAnalyzer
+import textblob
+from textblob.sentiments import NaiveBayesAnalyzer
 
 import nltk
 
@@ -48,7 +48,7 @@ def get_user_id(insta_username):
     if user_info['meta']['code'] == 200:
 
         if len(user_info['data']):
-            return user_info['data'][0]['id']
+            print user_info['data'][0]['id']
         else:
             return None
 
@@ -175,7 +175,7 @@ def like_a_post(insta_username):
 
 def get_comment_list(insta_username):
 
-    media_id = get_recent_post(insta_username)
+    media_id = get_user_post(insta_username)
 
     request_url = (BASE_URL + 'media/%s/comments') % (media_id)
     payload = {"access_token": APP_ACCESS_TOKEN}
@@ -258,6 +258,7 @@ def start_bot():
      if option == 1:
          self_info()
      elif option ==2:
+         insta_username = raw_input("Enter the username of the user: ")
          get_user_id(insta_username)
      elif option == 3:
          get_own_post()
